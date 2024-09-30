@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout do repositório
+      - uses: actions/checkout@v4
+
+      # Rodar um script (você pode substituir isso por qualquer outro comando)
+      - name: Run a build script
+        run: echo "Building the project"
+
+      # Criar o arquivo ZIP do diretório ou dos arquivos que você deseja
+      - name: Create ZIP file of the project
+        run: zip -r project.zip .
+
+      # Fazer o upload do artefato gerado para o GitHub Actions (para download posterior)
+      - name: Upload the ZIP file
+        uses: actions/upload-artifact@v3
+        with:
+          name: project-artifact
+          path: perseus.zip
