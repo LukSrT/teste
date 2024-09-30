@@ -15,16 +15,13 @@ jobs:
       # Checkout do repositório
       - uses: actions/checkout@v4
 
-      # Rodar um script (você pode substituir isso por qualquer outro comando)
-      - name: Run a build script
-        run: echo "Building the project"
+      # Criar o arquivo ZIP ignorando o diretório .github/
+      - name: Create ZIP file, excluding .github/
+        run: |
+          zip -r project.zip . -x ".github/*"
 
-      # Criar o arquivo ZIP do diretório ou dos arquivos que você deseja
-      - name: Create ZIP file of the project
-        run: zip -r project.zip .
-
-      # Fazer o upload do artefato gerado para o GitHub Actions (para download posterior)
-      - name: Upload the ZIP file
+      # Fazer o upload do ZIP como artefato
+      - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: project-artifact
